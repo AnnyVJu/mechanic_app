@@ -1,4 +1,3 @@
-import 'package:mechanic_project/lib/domain/models/car.dart';
 
 import '../models/car.dart';
 /*

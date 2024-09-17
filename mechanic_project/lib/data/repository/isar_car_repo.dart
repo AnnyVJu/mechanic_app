@@ -33,7 +33,8 @@ class IsarCarRepo implements CarRepo{
   final carIsar = CarIsar.fromDomain(newCar);
 
   //so that we can store it in our isar db
-  return db.writeTxn(() => db.carIsars.put(carIsar));
+  return  db.carIsars.put(carIsar);
+
 }
 
 //update car

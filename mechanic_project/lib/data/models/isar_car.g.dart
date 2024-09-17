@@ -3,321 +3,301 @@
 part of 'isar_car.dart';
 
 // **************************************************************************
-// IsarCollectionGenerator
+// _IsarCollectionGenerator
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+// ignore_for_file: duplicate_ignore, invalid_use_of_protected_member, lines_longer_than_80_chars, constant_identifier_names, avoid_js_rounded_ints, no_leading_underscores_for_local_identifiers, require_trailing_commas, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_in_if_null_operators, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: type=lint
 
 extension GetCarIsarCollection on Isar {
-  IsarCollection<CarIsar> get carIsars => this.collection();
+  IsarCollection<int, CarIsar> get carIsars => this.collection();
 }
 
-const CarIsarSchema = CollectionSchema(
-  name: r'CarIsar',
-  id: -896239315241343,
-  properties: {
-    r'description': PropertySchema(
-      id: 0,
-      name: r'description',
-      type: IsarType.string,
-    ),
-    r'gosNumber': PropertySchema(
-      id: 1,
-      name: r'gosNumber',
-      type: IsarType.string,
-    ),
-    r'isCompleted': PropertySchema(
-      id: 2,
-      name: r'isCompleted',
-      type: IsarType.bool,
-    )
-  },
-  estimateSize: _carIsarEstimateSize,
-  serialize: _carIsarSerialize,
-  deserialize: _carIsarDeserialize,
-  deserializeProp: _carIsarDeserializeProp,
-  idName: r'id',
-  indexes: {},
-  links: {},
-  embeddedSchemas: {},
-  getId: _carIsarGetId,
-  getLinks: _carIsarGetLinks,
-  attach: _carIsarAttach,
-  version: '3.1.0+1',
+const CarIsarSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'CarIsar',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'gosNumber',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'description',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'isCompleted',
+        type: IsarType.bool,
+      ),
+    ],
+    indexes: [],
+  ),
+  converter: IsarObjectConverter<int, CarIsar>(
+    serialize: serializeCarIsar,
+    deserialize: deserializeCarIsar,
+    deserializeProperty: deserializeCarIsarProp,
+  ),
+  embeddedSchemas: [],
 );
 
-int _carIsarEstimateSize(
-  CarIsar object,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  var bytesCount = offsets.last;
-  bytesCount += 3 + object.description.length * 3;
-  bytesCount += 3 + object.gosNumber.length * 3;
-  return bytesCount;
-}
-
-void _carIsarSerialize(
-  CarIsar object,
-  IsarWriter writer,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  writer.writeString(offsets[0], object.description);
-  writer.writeString(offsets[1], object.gosNumber);
-  writer.writeBool(offsets[2], object.isCompleted);
-}
-
-CarIsar _carIsarDeserialize(
-  Id id,
-  IsarReader reader,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  final object = CarIsar();
-  object.description = reader.readString(offsets[0]);
-  object.gosNumber = reader.readString(offsets[1]);
-  object.id = id;
-  object.isCompleted = reader.readBool(offsets[2]);
-  return object;
-}
-
-P _carIsarDeserializeProp<P>(
-  IsarReader reader,
-  int propertyId,
-  int offset,
-  Map<Type, List<int>> allOffsets,
-) {
-  switch (propertyId) {
-    case 0:
-      return (reader.readString(offset)) as P;
-    case 1:
-      return (reader.readString(offset)) as P;
-    case 2:
-      return (reader.readBool(offset)) as P;
-    default:
-      throw IsarError('Unknown property with id $propertyId');
-  }
-}
-
-Id _carIsarGetId(CarIsar object) {
+@isarProtected
+int serializeCarIsar(IsarWriter writer, CarIsar object) {
+  IsarCore.writeString(writer, 1, object.gosNumber);
+  IsarCore.writeString(writer, 2, object.description);
+  IsarCore.writeBool(writer, 3, object.isCompleted);
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _carIsarGetLinks(CarIsar object) {
-  return [];
+@isarProtected
+CarIsar deserializeCarIsar(IsarReader reader) {
+  final int _id;
+  _id = IsarCore.readId(reader);
+  final String _gosNumber;
+  _gosNumber = IsarCore.readString(reader, 1) ?? '';
+  final String _description;
+  _description = IsarCore.readString(reader, 2) ?? '';
+  final object = CarIsar(
+    id: _id,
+    gosNumber: _gosNumber,
+    description: _description,
+  );
+  object.isCompleted = IsarCore.readBool(reader, 3);
+  return object;
 }
 
-void _carIsarAttach(IsarCollection<dynamic> col, Id id, CarIsar object) {
-  object.id = id;
-}
-
-extension CarIsarQueryWhereSort on QueryBuilder<CarIsar, CarIsar, QWhere> {
-  QueryBuilder<CarIsar, CarIsar, QAfterWhere> anyId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(const IdWhereClause.any());
-    });
+@isarProtected
+dynamic deserializeCarIsarProp(IsarReader reader, int property) {
+  switch (property) {
+    case 0:
+      return IsarCore.readId(reader);
+    case 1:
+      return IsarCore.readString(reader, 1) ?? '';
+    case 2:
+      return IsarCore.readString(reader, 2) ?? '';
+    case 3:
+      return IsarCore.readBool(reader, 3);
+    default:
+      throw ArgumentError('Unknown property: $property');
   }
 }
 
-extension CarIsarQueryWhere on QueryBuilder<CarIsar, CarIsar, QWhereClause> {
-  QueryBuilder<CarIsar, CarIsar, QAfterWhereClause> idEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
-    });
-  }
+sealed class _CarIsarUpdate {
+  bool call({
+    required int id,
+    String? gosNumber,
+    String? description,
+    bool? isCompleted,
+  });
+}
 
-  QueryBuilder<CarIsar, CarIsar, QAfterWhereClause> idNotEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            )
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            )
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            );
-      }
-    });
-  }
+class _CarIsarUpdateImpl implements _CarIsarUpdate {
+  const _CarIsarUpdateImpl(this.collection);
 
-  QueryBuilder<CarIsar, CarIsar, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
-      );
-    });
-  }
+  final IsarCollection<int, CarIsar> collection;
 
-  QueryBuilder<CarIsar, CarIsar, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
-      );
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  @override
+  bool call({
+    required int id,
+    Object? gosNumber = ignore,
+    Object? description = ignore,
+    Object? isCompleted = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+    return collection.updateProperties([
+          id
+        ], {
+          if (gosNumber != ignore) 1: gosNumber as String?,
+          if (description != ignore) 2: description as String?,
+          if (isCompleted != ignore) 3: isCompleted as bool?,
+        }) >
+        0;
+  }
+}
+
+sealed class _CarIsarUpdateAll {
+  int call({
+    required List<int> id,
+    String? gosNumber,
+    String? description,
+    bool? isCompleted,
+  });
+}
+
+class _CarIsarUpdateAllImpl implements _CarIsarUpdateAll {
+  const _CarIsarUpdateAllImpl(this.collection);
+
+  final IsarCollection<int, CarIsar> collection;
+
+  @override
+  int call({
+    required List<int> id,
+    Object? gosNumber = ignore,
+    Object? description = ignore,
+    Object? isCompleted = ignore,
+  }) {
+    return collection.updateProperties(id, {
+      if (gosNumber != ignore) 1: gosNumber as String?,
+      if (description != ignore) 2: description as String?,
+      if (isCompleted != ignore) 3: isCompleted as bool?,
     });
   }
+}
+
+extension CarIsarUpdate on IsarCollection<int, CarIsar> {
+  _CarIsarUpdate get update => _CarIsarUpdateImpl(this);
+
+  _CarIsarUpdateAll get updateAll => _CarIsarUpdateAllImpl(this);
+}
+
+sealed class _CarIsarQueryUpdate {
+  int call({
+    String? gosNumber,
+    String? description,
+    bool? isCompleted,
+  });
+}
+
+class _CarIsarQueryUpdateImpl implements _CarIsarQueryUpdate {
+  const _CarIsarQueryUpdateImpl(this.query, {this.limit});
+
+  final IsarQuery<CarIsar> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? gosNumber = ignore,
+    Object? description = ignore,
+    Object? isCompleted = ignore,
+  }) {
+    return query.updateProperties(limit: limit, {
+      if (gosNumber != ignore) 1: gosNumber as String?,
+      if (description != ignore) 2: description as String?,
+      if (isCompleted != ignore) 3: isCompleted as bool?,
+    });
+  }
+}
+
+extension CarIsarQueryUpdate on IsarQuery<CarIsar> {
+  _CarIsarQueryUpdate get updateFirst =>
+      _CarIsarQueryUpdateImpl(this, limit: 1);
+
+  _CarIsarQueryUpdate get updateAll => _CarIsarQueryUpdateImpl(this);
+}
+
+class _CarIsarQueryBuilderUpdateImpl implements _CarIsarQueryUpdate {
+  const _CarIsarQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<CarIsar, CarIsar, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? gosNumber = ignore,
+    Object? description = ignore,
+    Object? isCompleted = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (gosNumber != ignore) 1: gosNumber as String?,
+        if (description != ignore) 2: description as String?,
+        if (isCompleted != ignore) 3: isCompleted as bool?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension CarIsarQueryBuilderUpdate
+    on QueryBuilder<CarIsar, CarIsar, QOperations> {
+  _CarIsarQueryUpdate get updateFirst =>
+      _CarIsarQueryBuilderUpdateImpl(this, limit: 1);
+
+  _CarIsarQueryUpdate get updateAll => _CarIsarQueryBuilderUpdateImpl(this);
 }
 
 extension CarIsarQueryFilter
     on QueryBuilder<CarIsar, CarIsar, QFilterCondition> {
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idGreaterThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idGreaterThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idLessThan(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'description',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idLessThanOrEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idBetween(
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'description',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'description',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
-      descriptionIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'description',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
+      );
     });
   }
 
@@ -326,60 +306,92 @@ extension CarIsarQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> gosNumberGreaterThan(
     String value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
+      gosNumberGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> gosNumberLessThan(
     String value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
+      gosNumberLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> gosNumberBetween(
     String lower,
     String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'gosNumber',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -388,11 +400,13 @@ extension CarIsarQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -401,11 +415,13 @@ extension CarIsarQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -413,11 +429,13 @@ extension CarIsarQueryFilter
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'gosNumber',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -425,91 +443,223 @@ extension CarIsarQueryFilter
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'gosNumber',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 1,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> gosNumberIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gosNumber',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 1,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> gosNumberIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'gosNumber',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 1,
+          value: '',
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idEqualTo(Id value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idGreaterThan(
-    Id value, {
-    bool include = false,
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionEqualTo(
+    String value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idLessThan(
-    Id value, {
-    bool include = false,
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionGreaterThan(
+    String value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
+      descriptionGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionLessThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
+      descriptionLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 2,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> descriptionIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 2,
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition>
+      descriptionIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 2,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterFilterCondition> isCompletedEqualTo(
-      bool value) {
+    bool value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'isCompleted',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 3,
+          value: value,
+        ),
+      );
     });
   }
 }
@@ -517,144 +667,227 @@ extension CarIsarQueryFilter
 extension CarIsarQueryObject
     on QueryBuilder<CarIsar, CarIsar, QFilterCondition> {}
 
-extension CarIsarQueryLinks
-    on QueryBuilder<CarIsar, CarIsar, QFilterCondition> {}
-
 extension CarIsarQuerySortBy on QueryBuilder<CarIsar, CarIsar, QSortBy> {
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByDescription() {
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByDescriptionDesc() {
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByGosNumber() {
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByGosNumber(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gosNumber', Sort.asc);
+      return query.addSortBy(
+        1,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByGosNumberDesc() {
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByGosNumberDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gosNumber', Sort.desc);
+      return query.addSortBy(
+        1,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByDescription(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        2,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByDescriptionDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        2,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByIsCompleted() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isCompleted', Sort.asc);
+      return query.addSortBy(3);
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> sortByIsCompletedDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isCompleted', Sort.desc);
+      return query.addSortBy(3, sort: Sort.desc);
     });
   }
 }
 
 extension CarIsarQuerySortThenBy
     on QueryBuilder<CarIsar, CarIsar, QSortThenBy> {
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.asc);
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.desc);
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByGosNumber() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gosNumber', Sort.asc);
-    });
-  }
-
-  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByGosNumberDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gosNumber', Sort.desc);
-    });
-  }
-
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByGosNumber(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(1, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByGosNumberDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByDescription(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByDescriptionDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByIsCompleted() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isCompleted', Sort.asc);
+      return query.addSortBy(3);
     });
   }
 
   QueryBuilder<CarIsar, CarIsar, QAfterSortBy> thenByIsCompletedDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isCompleted', Sort.desc);
+      return query.addSortBy(3, sort: Sort.desc);
     });
   }
 }
 
 extension CarIsarQueryWhereDistinct
     on QueryBuilder<CarIsar, CarIsar, QDistinct> {
-  QueryBuilder<CarIsar, CarIsar, QDistinct> distinctByDescription(
+  QueryBuilder<CarIsar, CarIsar, QAfterDistinct> distinctByGosNumber(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'description', caseSensitive: caseSensitive);
+      return query.addDistinctBy(1, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QDistinct> distinctByGosNumber(
+  QueryBuilder<CarIsar, CarIsar, QAfterDistinct> distinctByDescription(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'gosNumber', caseSensitive: caseSensitive);
+      return query.addDistinctBy(2, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<CarIsar, CarIsar, QDistinct> distinctByIsCompleted() {
+  QueryBuilder<CarIsar, CarIsar, QAfterDistinct> distinctByIsCompleted() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'isCompleted');
+      return query.addDistinctBy(3);
     });
   }
 }
 
-extension CarIsarQueryProperty
-    on QueryBuilder<CarIsar, CarIsar, QQueryProperty> {
-  QueryBuilder<CarIsar, int, QQueryOperations> idProperty() {
+extension CarIsarQueryProperty1 on QueryBuilder<CarIsar, CarIsar, QProperty> {
+  QueryBuilder<CarIsar, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addProperty(0);
     });
   }
 
-  QueryBuilder<CarIsar, String, QQueryOperations> descriptionProperty() {
+  QueryBuilder<CarIsar, String, QAfterProperty> gosNumberProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'description');
+      return query.addProperty(1);
     });
   }
 
-  QueryBuilder<CarIsar, String, QQueryOperations> gosNumberProperty() {
+  QueryBuilder<CarIsar, String, QAfterProperty> descriptionProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'gosNumber');
+      return query.addProperty(2);
     });
   }
 
-  QueryBuilder<CarIsar, bool, QQueryOperations> isCompletedProperty() {
+  QueryBuilder<CarIsar, bool, QAfterProperty> isCompletedProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'isCompleted');
+      return query.addProperty(3);
+    });
+  }
+}
+
+extension CarIsarQueryProperty2<R> on QueryBuilder<CarIsar, R, QAfterProperty> {
+  QueryBuilder<CarIsar, (R, int), QAfterProperty> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R, String), QAfterProperty> gosNumberProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R, String), QAfterProperty> descriptionProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R, bool), QAfterProperty> isCompletedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+}
+
+extension CarIsarQueryProperty3<R1, R2>
+    on QueryBuilder<CarIsar, (R1, R2), QAfterProperty> {
+  QueryBuilder<CarIsar, (R1, R2, int), QOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R1, R2, String), QOperations> gosNumberProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R1, R2, String), QOperations> descriptionProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<CarIsar, (R1, R2, bool), QOperations> isCompletedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
     });
   }
 }

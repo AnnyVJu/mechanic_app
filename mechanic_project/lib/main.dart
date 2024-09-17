@@ -13,7 +13,7 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
 
   //open isar database
-  final isar = await Isar.open([CarIsarSchema], directory: dir.path);
+  final isar = await Isar.open(schemas: [CarIsarSchema], directory: dir.path);
 
   //initialize the repo with isar database
   final isarCarRepo = IsarCarRepo(isar);
@@ -60,9 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
-
           ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
